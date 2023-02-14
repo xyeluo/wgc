@@ -1,0 +1,15 @@
+function __set_hist_prompt() {
+  HISTTIMEFORMAT="[%Y-%m-%d %H:%M:%S] "
+  if [[ ! "$OSTYPE" =~ ^msys ]]; then
+    export HISTFILE=/root/.bash_history
+    HISTTIMEFORMAT=$HISTTIMEFORMAT"[$(whoami)] $(who -u am i 2>/dev/null | awk '{print $NF}' | sed -e 's/(\(.*\))/[\1] /')"
+  fi
+}
+__set_hist_prompt
+export HISTTIMEFORMAT
+export HISTCONTROL=ignoredups:erasedups
+export PROMPT_COMMAND='history -a'
+# When multiple terminals operate at the same time, avoid command coverage and adopt the additional method
+shopt -s histappend
+export HISTSIZE=1000
+export HISTFILESIZE=10000

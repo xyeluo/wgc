@@ -1,0 +1,34 @@
+if [[ "$PROMPT_COMMAND" != "" ]] && [[ "$PROMPT_COMMAND" != 'exit_code=$?' ]]; then
+# based on https://github.com/twolfson/sexy-bash-prompt/blob/c6acbd323f2e0a2fe266fd0cde5865218ef0a6c3/.bash_prompt#L314
+  PROMPT_COMMAND='exit_code=$?;'"$PROMPT_COMMAND"
+else
+  PROMPT_COMMAND='exit_code=$?'
+fi
+export PROMPT_COMMAND
+
+function _get_git_branch() {
+  # copy on https://gist.github.com/bingzhangdai/dd4e283a14290c079a76c4ba17f19d69
+  local _head_file _head
+  local _dir="$PWD"
+  while [[ -n "$_dir" ]]; do
+    _head_file="$_dir/.git/HEAD"
+    if [[ -f "$_dir/.git" ]]; then
+      read -r _head_file <"$_dir/.git" && _head_file="$_dir/${_head_file#gitdir: }/HEAD"
+    fi
+    [[ -e "$_head_file" ]] && break
+    _dir="${_dir%/*}"
+  done
+  if [[ -e "$_head_file" ]]; then
+    read -r _head <"$_head_file" || return
+    case "$_head" in
+    ref:*) printf "${_head#ref: refs/heads/}" ;;
+    "") ;;
+    # HEAD detached
+    *) printf "${_head:0:9}" ;;
+    esac
+    return 0
+  fi
+  return 1
+}
+export PS1='\[\e[38;2;175;255;255m\]╭──\[\e[0m\]\[\e[38;2;175;255;255m\][\[\e[0m\] \[\e[38;2;246;229;141m\]\u@\h\[\e[0m\] \[\e[38;2;175;255;255m\]]\[\e[0m\]\[\e[38;2;175;255;255m\]-\[\e[0m\]\[\e[38;2;175;255;255m\][\[\e[0m\] \[\e[38;5;39;171;207m\]\D{%b/%d/%a}\[\e[0m\] \[\e[4;38;5;39;171;207m\]\t\[\e[0m\] \[\e[0;3;38;5;208m\]\W\[\e[0m\] \[\e[38;2;175;255;255m\]]\[\e[0m\]\[\e[38;2;175;255;255m\][\[\e[0m\]\[\e[38;5;149;175;192m\]\#:\!\[\e[0m\]\[\e[38;2;175;255;255m\]]\[\e[0m\]\n\[\e[38;2;175;255;255m\]╰──⮞\[\e[0m\]$(branch=$(_get_git_branch);if [ "$branch" ]; then echo  " \[\e[1;38;2;175;255;255m\][\[\e[0m\] \[\e[32m\]$branch\[\e[0m\] \[\e[1;38;2;175;255;255m\]]\[\e[0m\]";fi) $(if [ $exit_code -eq 0 ]; then echo "\[\e[0;38;5;43m\]\$\[\e[0m\]";else echo "\[\e[7;31m\]\$\[\e[0m\]";fi) '
+export PS2='$(echo -n " ";if [ $exit_code -eq 0 ]; then echo "\[\e[0;38;5;43m\]⮞\[\e[0m\]";else echo "\[\e[1;31m\]⮞\[\e[0m\]";fi) '

@@ -1,0 +1,50 @@
+# software or command alias
+command -v docker >/dev/null 2>&1 && alias d='docker'
+command -v vim >/dev/null 2>&1 && alias v='vim'
+command -v npm >/dev/null 2>&1 && alias n='npm'
+command -v yarn >/dev/null 2>&1 && alias ya='yarn'
+command -v winpty >/dev/null 2>&1 && alias w='winpty'
+
+command -v pnpm >/dev/null 2>&1 &&
+  alias p='pnpm' &&
+  alias pb='pnpm build' &&
+  alias pd='pnpm dev' &&
+  alias pi='pnpm install' &&
+  alias pse='pnpm serve' &&
+  alias pst='pnpm start' &&
+  alias pt='pnpm test'
+
+command -v git >/dev/null 2>&1 &&
+  alias ga='git add .' &&
+  alias gc='git commit' &&
+  alias gs='git status' &&
+  alias gac='ga && gc -m'
+
+alias e='echo'
+alias ..='cd ../'
+alias ...='..;..'
+alias ll='ls -al'
+alias ls='ls -F --color=auto --show-control-chars'
+
+command -v ip >/dev/null 2>&1 || alias ip='ipconfig'
+
+# python virtual environments, use 'pyenv' create and activate virtual
+alias pys='source ./venv/Scripts/activate'
+alias pyenv='python -m venv venv && pys'
+
+# personal proxy, use 'pon' and 'poff' on and off proxy for terminal
+PROXY='://127.0.0.1:7890'
+alias gitpon='git config --global http.proxy "http$PROXY" ; git config --global https.proxy "https$PROXY" ; git config --global socks5.proxy "socks5$PROXY"'
+alias gitpoff='git config --global --unset http.proxy ; git config --global --unset https.proxy ; git config --global --unset socks5.proxy'
+
+alias gpon='export https_proxy="http$PROXY" && echo -e "https_proxy\ton";
+export http_proxy="http$PROXY" && echo -e "http_proxy\ton";
+export all_proxy="socks5$PROXY" && echo -e "all_proxy\ton"'
+
+alias gpoff='unset https_proxy && echo -e "https_proxy\toff";
+unset http_proxy && echo -e "http_proxy\toff";
+unset all_proxy && echo -e "all_proxy\toff"'
+
+alias pon='gpon'
+alias poff='gitpoff && echo -e "gitProxy\toff";gpoff'
+alias proxy='git config --get --global http.proxy ; git config --get --global https.proxy ; git config --get --global socks.proxy;env |grep proxy' #get the proxy address of the current environment variable
