@@ -1,7 +1,6 @@
 "----------------------------------------"
 "--------- ==> Base config  <== ---------"
 "----------------------------------------"
-set laststatus=2
 syntax enable
 set nocompatible                    "Disable vi compatibility mode"
 set autoread                        "Automatically update the file when it is modified externally"
@@ -16,15 +15,39 @@ set clipboard+=unnamed
 set nobackup
 set noswapfile
 set completeopt=longest,menu
-colorscheme desert                   "set theme"
 
-set statusline=%<%.15F\ %m%=%Y\ \|\ %{&fenc}\ 
-set statusline+=[%l:%v]\ 
-set statusline+=%p%%\ (%{strftime(\"%d/%m/%y-%H:%M\")})\ 
+function! ElelineFsize(f) abort
+  "copied at https://github.com/liuchengxu/eleline.vim/blob/8d9b381089c0285f97601b494264e85bc5b4ce8d/plugin/eleline.vim#L42"
+  let l:size = getfsize(expand(a:f))
+  if l:size == 0 || l:size == -1 || l:size == -2
+    return ''
+  endif
+  if l:size < 1024
+    let size = l:size.' bytes'
+  elseif l:size < 1024*1024
+    let size = printf('%.1f', l:size/1024.0).'k'
+  elseif l:size < 1024*1024*1024
+    let size = printf('%.1f', l:size/1024.0/1024.0) . 'm'
+  else
+    let size = printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'g'
+  endif
+  return '  '.size.' '
+endfunction
+
+colorscheme desert                   "set theme"
+set statusline=%1*%<%.15F%{ElelineFsize(@%)}%=
+set statusline+=%2*%{strftime(\"%d/%m/%y-%H:%M\")}\ 
+set statusline+=%3*%Y\ \|\ %{&fenc}\ 
+set statusline+=%4*[%l:%v]\ %p%%\ 
+
+hi User1 cterm=none ctermfg=white ctermbg=238
+hi User2 cterm=bold ctermfg=darkgrey ctermbg=238
+hi User3 cterm=none ctermfg=white ctermbg=238
+hi User4 cterm=none ctermfg=yellow ctermbg=darkgray
 
 
 "----------------------------------------"
-"- ==> Complies with autocompletion <== -"
+"---- ==> Symbol auto-completion <== ----"
 "----------------------------------------"
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
@@ -62,4 +85,3 @@ set wrap
 set cursorline
 set mouse=c
 set number
-set background=dark
