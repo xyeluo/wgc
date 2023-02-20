@@ -2,7 +2,6 @@
 "--------- ==> Base config  <== ---------"
 "----------------------------------------"
 syntax enable
-set nocompatible                    "Disable vi compatibility mode"
 set autoread                        "Automatically update the file when it is modified externally"
 if version >= 603
 	set helplang=cn
@@ -49,16 +48,16 @@ hi User4 cterm=none ctermfg=yellow ctermbg=darkgray
 "----------------------------------------"
 "---- ==> Symbol auto-completion <== ----"
 "----------------------------------------"
-:inoremap ( ()<ESC>i
+:inoremap ( ()<Left>
+:inoremap { {}<Left>
+:inoremap [ []<Left>
+:inoremap < <><Left>
+:inoremap " ""<Left>
+:inoremap ' ''<Left>
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {}<ESC>i
 :inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
-inoremap < <><ESC>i
-inoremap > <c-r>=ClosePair('>')<CR>
+:inoremap > <c-r>=ClosePair('>')<CR>
 function! ClosePair(char)
   if getline('.')[col('.') - 1] == a:char
     return "\<Right>"
@@ -74,6 +73,7 @@ noremap <F4> :tabnew .<CR>
 noremap s :x <CR>
 noremap q :q <CR>
 noremap ; :
+noremap v <C-v>
 :inoremap <C-s> <ESC>:x <CR>
 :inoremap <C-q> <ESC>:q! <CR>
 set autoindent

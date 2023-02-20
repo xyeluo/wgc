@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/usr/bin/env bash
 
 function __set_hist_prompt() {
   HISTTIMEFORMAT="[%Y-%m-%d %H:%M:%S] "
