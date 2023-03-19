@@ -1,6 +1,4 @@
-"----------------------------------------"
-"--------- ==> Base config  <== ---------"
-"----------------------------------------"
+"--------- Base config  ---------"
 syntax enable
 set autoread                        "Automatically update the file when it is modified externally"
 if version >= 603
@@ -32,8 +30,9 @@ function! ElelineFsize(f) abort
   endif
   return '  '.size.' '
 endfunction
-
 colorscheme desert                   "set theme"
+set cursorcolumn
+set cursorline
 set statusline=%1*%<%.15F%{ElelineFsize(@%)}%=
 set statusline+=%2*%{strftime(\"%d/%m/%y-%H:%M\")}\ 
 set statusline+=%3*%Y\ \|\ %{&fenc}\ 
@@ -45,9 +44,7 @@ hi User3 cterm=none ctermfg=white ctermbg=238
 hi User4 cterm=none ctermfg=yellow ctermbg=darkgray
 
 
-"----------------------------------------"
-"---- ==> Symbol auto-completion <== ----"
-"----------------------------------------"
+"---- Symbol auto-completion ----"
 :inoremap ( ()<Left>
 :inoremap { {}<Left>
 :inoremap [ []<Left>
@@ -66,15 +63,15 @@ function! ClosePair(char)
   endif
 endfunction
 
-"----------------------------------------"
-"------------ ==> Other  <== ------------"
-"----------------------------------------"
+
+"------------ Other ------------"
 noremap <F4> :tabnew .<CR>
 noremap s :x <CR>
 noremap q :q <CR>
 noremap ; :
 noremap v <C-v>
 :inoremap <C-s> <ESC>:x <CR>
+:inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<C-p>"
 :inoremap <C-q> <ESC>:q! <CR>
 set autoindent
 set expandtab                        "use spaces instead of indents"
@@ -82,6 +79,5 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=2
 set wrap
-set cursorline
 set mouse=c
 set number

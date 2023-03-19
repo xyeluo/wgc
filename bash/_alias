@@ -53,8 +53,12 @@ exist_cmd python && {
 
 # personal proxy, use 'pon' and 'poff' on and off proxy for terminal
 PROXY='://127.0.0.1:7890'
-alias gitpon='git config --global http.proxy "http$PROXY" ; git config --global https.proxy "https$PROXY" ; git config --global socks5.proxy "socks5$PROXY"'
-alias gitpoff='git config --global --unset http.proxy ; git config --global --unset https.proxy ; git config --global --unset socks5.proxy'
+alias gitpon='git config --global http.proxy "http$PROXY";
+git config --global https.proxy "https$PROXY";
+git config --global socks5.proxy "socks5$PROXY"'
+alias gitpoff='git config --global --unset http.proxy;
+git config --global --unset https.proxy;
+git config --global --unset socks5.proxy'
 
 alias gpon='export https_proxy="http$PROXY" && echo -e "https_proxy\ton";
 export http_proxy="http$PROXY" && echo -e "http_proxy\ton";
@@ -66,4 +70,7 @@ unset all_proxy && echo -e "all_proxy\toff"'
 
 alias pon='gpon'
 alias poff='gitpoff && echo -e "gitProxy\toff";gpoff'
-alias proxy='git config --get --global http.proxy ; git config --get --global https.proxy ; git config --get --global socks.proxy;env |grep proxy' #get the proxy address of the current environment variable
+alias proxy='git config --get --global http.proxy;
+git config --get --global https.proxy;
+git config --get --global socks.proxy;
+env |grep proxy' #get the proxy address of the current environment variable

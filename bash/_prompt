@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$PROMPT_COMMAND" == "" ]]; then
-  PROMPT_COMMAND='exit_code=$?'
+  PROMPT_COMMAND='exit_code=$?;'
 elif [[ ! "$PROMPT_COMMAND" =~ exit_code ]]; then
   PROMPT_COMMAND='exit_code=$?;'"$PROMPT_COMMAND"
 fi

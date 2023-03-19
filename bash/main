@@ -18,6 +18,6 @@ fi
 CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/_"
 bind -f "${CURRENT_PATH}inputrc" 2>/dev/null #suppress stderr for non-interactive warning
 
-for SOC_FILE in 'prompt' 'history' 'alias'; do
+for SOC_FILE in 'alias' 'history' 'prompt'; do
   source ${CURRENT_PATH}${SOC_FILE}
 done
