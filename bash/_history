@@ -10,7 +10,7 @@ function __set_hist_prompt() {
 __set_hist_prompt
 export HISTTIMEFORMAT
 export HISTCONTROL=erasedups
-export PROMPT_COMMAND='history -a'
+export PROMPT_COMMAND='history -a;'
 # When multiple terminals operate at the same time, avoid command coverage and adopt the additional method
 shopt -s histappend
 export HISTSIZE=1000
