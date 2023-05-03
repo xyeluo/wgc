@@ -15,11 +15,14 @@ exist_cmd code && alias co='code'
 
 exist_cmd busybox &&
   alias b='busybox' &&
-  exist_cmd sudo &&
-  alias sudo='sudo busybox'
+  exist_cmd sudo && {
+    alias su='sudo'
+    alias sub='sudo busybox'
+  }
 
 exist_cmd pnpm && {
   alias p='pnpm'
+  alias px='pnpx'
   alias pb='pnpm build'
   alias pd='pnpm dev'
   alias pi='pnpm install'

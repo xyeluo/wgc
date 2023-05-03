@@ -42,7 +42,6 @@ hi User1 cterm=none ctermfg=white ctermbg=238
 hi User2 cterm=bold ctermfg=darkgrey ctermbg=238
 hi User3 cterm=none ctermfg=white ctermbg=238
 hi User4 cterm=none ctermfg=yellow ctermbg=darkgray
-hi Normal ctermfg=252 ctermbg=none
 
 "---- Symbol auto-completion ----"
 :inoremap ( ()<Left>
