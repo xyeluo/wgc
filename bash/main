@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# todo:init steps for install prompt
-# git_pr='/etc/profile.d/git-prompt.sh'
-# if [ -f "$git_pr" ]; then
-#   mv "$git_pr" "${git_pr}_bck"
-# fi
-
 CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/_"
 bind -f "${CURRENT_PATH}inputrc" 2>/dev/null #suppress stderr for non-interactive warning
 
