@@ -3,7 +3,8 @@
 exist_cmd() {
   command -v "$1" &>/dev/null
 }
-
+_PROXY='://127.0.0.1:7890'
+_poff='gitpoff && echo -e "git proxy\toff";'
 # software or command alias
 exist_cmd docker && alias d='docker'
 exist_cmd vim && alias v='vim'
@@ -16,9 +17,9 @@ exist_cmd code && alias co='code'
 exist_cmd busybox &&
   alias b='busybox' &&
   exist_cmd sudo && {
-    alias su='sudo'
-    alias sub='sudo busybox'
-  }
+  alias su='sudo'
+  alias sub='sudo busybox'
+}
 
 exist_cmd pnpm && {
   alias p='pnpm'
@@ -55,25 +56,32 @@ exist_cmd python && {
 }
 
 # personal proxy, use 'pon' and 'poff' on and off proxy for terminal
-PROXY='://127.0.0.1:7890'
-alias gitpon='git config --global http.proxy "http$PROXY";
-git config --global https.proxy "https$PROXY";
-git config --global socks5.proxy "socks5$PROXY"'
-alias gitpoff='git config --global --unset http.proxy;
+exist_cmd git && {
+  alias gitpon='git config --global http.proxy "http$_PROXY";
+git config --global https.proxy "https$_PROXY";
+git config --global socks5.proxy "socks5$_PROXY"'
+  alias gitpoff='git config --global --unset http.proxy;
 git config --global --unset https.proxy;
 git config --global --unset socks5.proxy'
-
-alias gpon='export https_proxy="http$PROXY" && echo -e "https_proxy\ton";
-export http_proxy="http$PROXY" && echo -e "http_proxy\ton";
-export all_proxy="socks5$PROXY" && echo -e "all_proxy\ton"'
+}
+alias gpon='export https_proxy="http$_PROXY" && echo -e "https_proxy\ton";
+export http_proxy="http$_PROXY" && echo -e "http_proxy\ton";
+export all_proxy="socks5$_PROXY" && echo -e "all_proxy\ton"'
 
 alias gpoff='unset https_proxy && echo -e "https_proxy\toff";
 unset http_proxy && echo -e "http_proxy\toff";
 unset all_proxy && echo -e "all_proxy\toff"'
 
 alias pon='gpon'
-alias poff='gitpoff && echo -e "gitProxy\toff";gpoff'
+
+# shellcheck disable=SC2139
+exist_cmd git && alias poff="$_poff"
+# shellcheck disable=SC2139
+exist_cmd git && alias poff="$_poff""gpoff"
+
 alias proxy='git config --get --global http.proxy;
 git config --get --global https.proxy;
 git config --get --global socks.proxy;
 env |grep proxy' #get the proxy address of the current environment variable
+
+
