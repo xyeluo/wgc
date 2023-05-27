@@ -7,16 +7,15 @@ _FIRST_LINE_PATH='\[\e[0;3;38;5;208m\]\W\[\e[0m\]'
 # show [user@root]-[date path]
 _FIRST_LINE_CONTEXT='\[\e[38;2;175;255;255m\][\[\e[0m\] \[\e[38;2;246;229;141m\]\u@\h\[\e[0m\] \[\e[38;2;175;255;255m\]]\[\e[0m\]\[\e[38;2;175;255;255m\]-\[\e[0m\]\[\e[38;2;175;255;255m\][\[\e[0m\] \[\e[38;5;39;171;207m\]\D{%b/%d/%a}\[\e[0m\] \[\e[4;38;5;39;171;207m\]\t\[\e[0m\] '$_FIRST_LINE_PATH' \[\e[38;2;175;255;255m\]]\[\e[0m\]\n'
 
-_SECOND_LINE_PREFIX='\[\e[38;2;175;255;255m\]╰─⮞ \[\e[0m\]'
+_SECOND_LINE_PREFIX='\[\e[38;2;175;255;255m\]╰─⮞\[\e[0m\]'
 
-_SECOND_LINE_GIT_BRANCH_CODE_ERROT='$(_branch=$(_get_git_branch);if [ "$_branch" ]; then echo "\[\e[1;38;2;175;255;255m\][\[\e[0m\] \[\e[32m\]$_branch\[\e[0m\] \[\e[1;38;2;175;255;255m\]]\[\e[0m\]";fi) $(if [[ "$exit_code" -eq 0 ]]; then echo "\[\e[0;38;5;43m\]\$\[\e[0m\]";else echo "\[\e[7;31m\]\$\[\e[0m\]";fi) '
+_SECOND_LINE_GIT_BRANCH_CODE_ERROT='$(_branch=$(_get_git_branch);if [ "$_branch" ]; then echo " \[\e[1;38;2;175;255;255m\][\[\e[0m\] \[\e[32m\]$_branch\[\e[0m\] \[\e[1;38;2;175;255;255m\]]\[\e[0m\]";fi) $(if [[ "$exit_code" -eq 0 ]]; then echo "\[\e[0;38;5;43m\]\$\[\e[0m\]";else echo "\[\e[7;31m\]\$\[\e[0m\]";fi) '
 
 if [[ -z "$PROMPT_COMMAND" ]]; then
   PROMPT_COMMAND='exit_code=$?;'
 elif ! [[ $PROMPT_COMMAND =~ exit_code ]]; then
   PROMPT_COMMAND='exit_code=$?;'"$PROMPT_COMMAND;"
 fi
-
 
 function _get_git_branch() {
   # copied at https://gist.github.com/bingzhangdai/dd4e283a14290c079a76c4ba17f19d69
