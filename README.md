@@ -2,5 +2,8 @@
 ./install.sh 
 ```
 ```shell
-./install.sh -uni
+./install.sh uni
+```
+```shell
+./install.sh -h   #help note
 ```
