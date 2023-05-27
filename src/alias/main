@@ -23,7 +23,6 @@ exist_cmd busybox &&
 
 exist_cmd pnpm && {
   alias p='pnpm'
-  alias px='pnpx'
   alias pb='pnpm build'
   alias pd='pnpm dev'
   alias pi='pnpm install'
