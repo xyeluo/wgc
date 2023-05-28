@@ -78,9 +78,8 @@ exist_cmd git && alias poff="$_poff"
 # shellcheck disable=SC2139
 exist_cmd git && alias poff="$_poff""gpoff"
 
+#get the proxy address of the current environment variable
 alias proxy='git config --get --global http.proxy;
 git config --get --global https.proxy;
 git config --get --global socks.proxy;
-env |grep proxy' #get the proxy address of the current environment variable
-
-
+env |grep proxy'

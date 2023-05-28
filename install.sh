@@ -34,6 +34,10 @@ function _i_profile() {
   # install profile config
   # backup profile
   local profile_path="$HOME/.bash_profile"
+  # if system is not Windows
+  if [[ ! "$OSTYPE" =~ ^msys ]]; then
+    profile_path="$HOME/.bashrc"
+  fi
   _backup_file "$profile_path"
   echo -e "$1" >>"$profile_path"
 }

@@ -62,7 +62,6 @@ function! ClosePair(char)
   endif
 endfunction
 
-
 "------------ Other ------------"
 noremap <F4> :tabnew .<CR>
 noremap s :x <CR>
