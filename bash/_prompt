@@ -58,6 +58,7 @@ function simple_style() {
   _SECOND_LINE_PREFIX=' '
   export_PS1
   function desimpel_style() {
+    # shellcheck disable=SC2317
     export PS1=$_ps1_old
   }
 }
