@@ -9,7 +9,11 @@ _FIRST_LINE_CONTEXT='\[\e[38;2;175;255;255m\][\[\e[0m\] \[\e[38;2;246;229;141m\]
 
 _SECOND_LINE_PREFIX='\[\e[38;2;175;255;255m\]╰─⮞\[\e[0m\]'
 
-_SECOND_LINE_GIT_BRANCH_CODE_ERROT='$(_branch=$(_get_git_branch);if [ "$_branch" ]; then echo " \[\e[1;38;2;175;255;255m\][\[\e[0m\] \[\e[32m\]$_branch\[\e[0m\] \[\e[1;38;2;175;255;255m\]]\[\e[0m\]";fi) $(if [[ "$exit_code" -eq 0 ]]; then echo "\[\e[0;38;5;43m\]\$\[\e[0m\]";else echo "\[\e[7;31m\]\$\[\e[0m\]";fi) '
+_SECOND_LINE_GIT_BRANCH_PREFIX='$(_branch=$(_get_git_branch);if [ "$_branch" ]; then echo " \[\e[1;38;2;175;255;255m\][\[\e[0m\]'
+_SECOND_LINE_GIT_BRANCH='\[\e[32m\]$_branch\[\e[0m\]'
+_SECOND_LINE_GIT_BRANCH_SUFFIX='\[\e[1;38;2;175;255;255m\]]\[\e[0m\]";fi)$(echo -n " ";if [[ "$exit_code" -eq 0 ]]; then echo "\[\e[0;38;5;43m\]\$\[\e[0m\]";else echo "\[\e[7;31m\]\$\[\e[0m\]";fi) '
+
+_SECOND_LINE_GIT_BRANCH_CODE_ERROT=$_SECOND_LINE_GIT_BRANCH_PREFIX' '$_SECOND_LINE_GIT_BRANCH' '$_SECOND_LINE_GIT_BRANCH_SUFFIX
 
 if [[ -z "$PROMPT_COMMAND" ]]; then
   PROMPT_COMMAND='exit_code=$?;'
@@ -55,7 +59,8 @@ function simple_style() {
   _ps1_old=$PS1
   _FIRST_LINE_PREFIX=$_ps1_pre
   _FIRST_LINE_CONTEXT=$_FIRST_LINE_PATH
-  _SECOND_LINE_PREFIX=' '
+  _SECOND_LINE_PREFIX=''
+  _SECOND_LINE_GIT_BRANCH_CODE_ERROT=${_SECOND_LINE_GIT_BRANCH_PREFIX}${_SECOND_LINE_GIT_BRANCH}${_SECOND_LINE_GIT_BRANCH_SUFFIX}
   export_PS1
   function desimpel_style() {
     # shellcheck disable=SC2317

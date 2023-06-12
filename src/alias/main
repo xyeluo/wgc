@@ -27,6 +27,7 @@ exist_cmd pnpm && {
   alias px='pnpm exec'
   alias pd='pnpm dev'
   alias pi='pnpm install'
+  alias puni='pnpm uninstall'
   alias pse='pnpm serve'
   alias pst='pnpm start'
   alias pt='pnpm test'
