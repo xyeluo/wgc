@@ -25,6 +25,10 @@ function _i_alias() {
   _e_init 'alias'
   local alias_path="./bash/_alias"
   local head="#!/usr/bin/env bash\n"
+
+  local git_al='/etc/profile.d/aliases.sh'
+  [ -f "$git_al" ] && source $git_al && _backup_file "$git_al" && rm -rf "$git_al"
+  touch $alias_path
   source "./src/alias/main" &&
     echo -e "$head" >"$alias_path" &&
     alias >>"$alias_path"
@@ -168,10 +172,12 @@ function _wgc_install() {
 
 function _wgc_uninstall() {
   if [ -d "$_INSTALL_PATH" ]; then
+  local base_path='/etc/profile.d/'
     rm -rf "$_INSTALL_PATH"
     _restore_file "${_PROFILE_PATH}.bck" &&
       _restore_file "${HOME}/.vimrc.bck" &&
-      _restore_file "/etc/profile.d/git-prompt.sh.bck" &&
+      _restore_file "${base_path}git-prompt.sh.bck" &&
+      _restore_file "${base_path}aliases.sh.bck"
       _echo "success" "Wgc succeed remove!\nTerminal needs to be restarted!"
   else
     _echo "error" "not install wgc"
