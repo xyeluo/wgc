@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1090
 
-CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/_"
+CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/"
 bind -f "${CURRENT_PATH}inputrc" 2>/dev/null #suppress stderr for non-interactive warning
 
 for SOC_FILE in 'prompt' 'alias' 'history'; do
-  # shellcheck disable=SC1090
-  source "${CURRENT_PATH}${SOC_FILE}"
+  source "${CURRENT_PATH}_${SOC_FILE}"
 done
+
+source "${CURRENT_PATH}uninstall.sh"
