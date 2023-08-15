@@ -2,7 +2,7 @@
 # shellcheck disable=SC1090
 
 CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/"
-bind -f "${CURRENT_PATH}inputrc" 2>/dev/null #suppress stderr for non-interactive warning
+bind -f "${CURRENT_PATH}_inputrc" 2>/dev/null #suppress stderr for non-interactive warning
 
 for SOC_FILE in 'prompt' 'alias' 'history'; do
   source "${CURRENT_PATH}_${SOC_FILE}"
