@@ -28,6 +28,13 @@ function _i_alias() {
 
   local git_al='/etc/profile.d/aliases.sh'
   [ -f "$git_al" ] && source $git_al && _backup_file "$git_al" && rm -rf "$git_al"
+
+  # if system is not Windows
+  if [[ ! "$OSTYPE" =~ ^msys ]]; then
+    cp ./src/alias/main $alias_path
+    return 1
+  fi
+
   touch $alias_path
   source "./src/alias/main" &&
     echo -e "$head" >"$alias_path" &&
