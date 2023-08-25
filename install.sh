@@ -57,21 +57,6 @@ function _i_prompt() {
   fi
 }
 
-function _i_profile() {
-  _e_init 'profile'
-
-  # install profile config
-  # backup profile
-  local profile_path="$HOME/.bash_profile"
-
-  # if system is not Windows
-  if [[ ! "$OSTYPE" =~ ^msys ]]; then
-    profile_path="$HOME/.bashrc"
-  fi
-  _backup_file "$profile_path"
-  echo -e "\n$1" >>"$profile_path"
-}
-
 function _i_vimrc() {
   _e_init 'vimrc'
 
@@ -98,7 +83,6 @@ function _e_init() {
 }
 
 function _backup_file() {
-  # if exists $_PROFILE_PATH file,backup it
   if [ -f "$1" ]; then
     cp "$1" "${1}.bck"
     echo "backup $(basename "$1") to ${1}.bck"
@@ -149,9 +133,13 @@ function _wgc_install() {
   _i_vimrc
 
   local start_path="${_INSTALL_PATH}/"
-  # shellcheck disable=SC2154
-  _i_profile "[[ -f '${start_path}main' ]] && source '${start_path}main'"
-  _echo "success" "Wgc succeed install!${_INSTALL_SUCCESS_INFO}"
+  local profile_path='$HOME/.bash_profile'
+
+  # if system is not Windows
+  if [[ ! "$OSTYPE" =~ ^msys ]]; then
+    profile_path='$HOME/.bashrc'
+  fi
+  _echo "success" "Wgc succeed install!\nRun 'echo 'source ${start_path}main'>>${profile_path}'${_INSTALL_SUCCESS_INFO}"
 }
 
 function _wgc_parse_options() {

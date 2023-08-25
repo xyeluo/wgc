@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 _INSTALL_PATH="$HOME/.config/wgc"
-_PROFILE_PATH="$HOME/.bash_profile"
 
 function _echo() {
   local msg
@@ -31,11 +30,10 @@ function wgc_uninstall() {
   if [ -d "$_INSTALL_PATH" ]; then
     local base_path='/etc/profile.d/'
     rm -rf "$_INSTALL_PATH"
-    _restore_file "${_PROFILE_PATH}.bck" &&
-      _restore_file "${HOME}/.vimrc.bck" &&
+    _restore_file "${HOME}/.vimrc.bck" &&
       _restore_file "${base_path}git-prompt.sh.bck" &&
       _restore_file "${base_path}aliases.sh.bck" &&
-    _echo "success" "Wgc succeed remove!\nTerminal needs to be restarted!"
+      _echo "success" "Wgc succeed remove!\nTerminal needs to be restarted!"
   else
     _echo "error" "not install wgc"
   fi

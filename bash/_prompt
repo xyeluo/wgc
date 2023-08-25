@@ -46,7 +46,7 @@ function _get_git_branch() {
   return 1
 }
 
-function export_PS1() {
+function _export_PS1() {
   export PS1=$_FIRST_LINE_PREFIX${_FIRST_LINE_CONTEXT}${_SECOND_LINE_PREFIX}$_SECOND_LINE_GIT_BRANCH_CODE_ERROT
 }
 
@@ -61,7 +61,7 @@ function simple_style() {
   _FIRST_LINE_CONTEXT=$_FIRST_LINE_PATH
   _SECOND_LINE_PREFIX=''
   _SECOND_LINE_GIT_BRANCH_CODE_ERROT=${_SECOND_LINE_GIT_BRANCH_PREFIX}${_SECOND_LINE_GIT_BRANCH}${_SECOND_LINE_GIT_BRANCH_SUFFIX}
-  export_PS1
+  _export_PS1
   function desimpel_style() {
     # shellcheck disable=SC2317
     export PS1=$_ps1_old
@@ -72,12 +72,12 @@ function _check_python_virtualenv {
   if [[ "$VIRTUAL_ENV" ]]; then
     _FIRST_LINE_PREFIX='(`basename "$VIRTUAL_ENV"`) '
     _SECOND_LINE_PREFIX='\e[38;2;175;255;255m\] ⮞\[\e[0m\]'
-    export_PS1
+    _export_PS1
   fi
 }
 PROMPT_COMMAND=$PROMPT_COMMAND"_check_python_virtualenv;"
 
-export_PS1
+_export_PS1
 export PS2='$(echo -n " ";if [[ "$exit_code" -eq 0 ]]; then echo "\[\e[0;38;5;43m\]⮞\[\e[0m\]";else echo "\[\e[1;31m\]⮞\[\e[0m\]";fi) '
 export -f _get_git_branch _check_python_virtualenv
 export PROMPT_COMMAND
