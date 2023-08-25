@@ -7,6 +7,7 @@ function _echo() {
   case "$1" in
   "success") msg="\e[32m${2}\e[0m" ;;
   "error") msg="\e[0;31m${2}\e[0m" ;;
+  "reverse") msg="\e[7;32m${2}\e[0m" ;;
   esac
   echo -e "$msg"
 }
