@@ -33,7 +33,6 @@ function wgc_uninstall() {
     rm -rf "$_INSTALL_PATH"
     _restore_file "${HOME}/.vimrc.bck" &&
       _restore_file "${base_path}git-prompt.sh.bck" &&
-      _restore_file "${base_path}aliases.sh.bck" &&
       _echo "success" "Wgc succeed remove!\nTerminal needs to be restarted!"
   else
     _echo "error" "not install wgc"

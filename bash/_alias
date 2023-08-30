@@ -89,7 +89,3 @@ alias ...='..;..'
 alias ll='ls -al'
 
 _exist_cmd ip || alias ip='ipconfig'
-
-# personal workspace
-WO="D:/Users/YeL/Documents/Code/"
-[[ -d "$WO" ]] && alias wo="cd $WO"
