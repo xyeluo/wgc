@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
-CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/"
-bind -f "${CURRENT_PATH}_inputrc" 2>/dev/null #suppress stderr for non-interactive warning
+function _wgc_init() {
+  local CURRENT_PATH SOC_FILE
+  CURRENT_PATH="$(dirname "${BASH_SOURCE[0]}")/"
+  bind -f "${CURRENT_PATH}_inputrc" 2>/dev/null #suppress stderr for non-interactive warning
 
-for SOC_FILE in 'prompt' 'alias' 'history'; do
-  source "${CURRENT_PATH}_${SOC_FILE}"
-done
+  for SOC_FILE in 'prompt' 'alias' 'history'; do
+    source "${CURRENT_PATH}_${SOC_FILE}"
+  done
 
-source "${CURRENT_PATH}uninstall.sh"
+  source "${CURRENT_PATH}uninstall.sh"
+}
+
+_wgc_init
