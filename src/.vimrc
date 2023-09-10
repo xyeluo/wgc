@@ -79,3 +79,5 @@ set shiftwidth=2
 set wrap
 set mouse=c
 set number
+set hlsearch
+set incsearch
