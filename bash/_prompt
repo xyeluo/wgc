@@ -51,7 +51,11 @@ function _export_PS1() {
 }
 
 # simple style of PS1
+_IS_SIMPLE_STYLE=false
 function simple_style() {
+  $_IS_SIMPLE_STYLE && return 1
+
+  _IS_SIMPLE_STYLE=true
   local _ps1_pre=''
   if [[ "$VIRTUAL_ENV" ]]; then
     _ps1_pre="($(basename "$VIRTUAL_ENV")) "
@@ -62,9 +66,12 @@ function simple_style() {
   _SECOND_LINE_PREFIX=''
   _SECOND_LINE_GIT_BRANCH_CODE_ERROT=${_SECOND_LINE_GIT_BRANCH_PREFIX}${_SECOND_LINE_GIT_BRANCH}${_SECOND_LINE_GIT_BRANCH_SUFFIX}
   _export_PS1
+
+  # shellcheck disable=SC2317
   function desimpel_style() {
-    # shellcheck disable=SC2317
+    _IS_SIMPLE_STYLE=false
     export PS1=$_ps1_old
+    unset -f desimpel_style
   }
 }
 

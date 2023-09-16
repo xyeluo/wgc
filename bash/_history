@@ -5,7 +5,7 @@ function __set_hist_prompt() {
   # if system is not Windows
   if [[ ! "$OSTYPE" =~ ^msys ]]; then
     # export HISTFILE=/root/.bash_history
-    HISTTIMEFORMAT=$HISTTIMEFORMAT"[$(whoami)] $(who -u am i 2>/dev/null | awk '{print $NF}' | sed -e 's/(\(.*\))/[\1] /')"
+    HISTTIMEFORMAT=$HISTTIMEFORMAT"$(who -u am i 2>/dev/null | awk '{print $NF}' | sed -e 's/(\(.*\))/[\1] /')"
   fi
 }
 
