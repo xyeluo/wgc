@@ -78,7 +78,7 @@ function simple_style() {
 function _check_python_virtualenv {
   if [[ "$VIRTUAL_ENV" ]]; then
     _FIRST_LINE_PREFIX='(`basename "$VIRTUAL_ENV"`) '
-    _SECOND_LINE_PREFIX='\e[38;2;175;255;255m\] ⮞\[\e[0m\]'
+    _SECOND_LINE_PREFIX='\[\e[38;2;175;255;255m\] ⮞\[\e[0m\]'
     _export_PS1
   fi
 }

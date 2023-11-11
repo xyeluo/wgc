@@ -65,21 +65,21 @@ unset all_proxy && echo -e "all_proxy\toff";'
   #get the proxy address of the current environment variable
   alias proxy="$_proxy"
   _exist_cmd git && {
-    alias gitpon="git config --global http.proxy http${_PROXY_URL};
-git config --global https.proxy http${_PROXY_URL};
-git config --global socks5.proxy socks5${_PROXY_URL}"
-    alias gitpoff='git config --global --unset http.proxy;
-git config --global --unset https.proxy;
-git config --global --unset socks5.proxy'
+    alias gitpon="git config --global http.proxy http${_PROXY_URL} && echo -e 'git http.proxy\t\ton';
+git config --global https.proxy http${_PROXY_URL} && echo -e 'git https.proxy\t\ton';
+git config --global socks5.proxy socks5${_PROXY_URL} && echo -e 'git socks5.proxy\ton'"
+
+    alias gitpoff="git config --global --unset http.proxy && echo -e 'git http.proxy\t\toff';
+git config --global --unset https.proxy && echo -e 'git https.proxy\t\toff';
+git config --global --unset socks5.proxy && echo -e 'git socks5.proxy\toff'"
 
     # if exist git, the alias will overwrite the privious
     alias proxy='git config --get --global http.proxy;
 git config --get --global https.proxy;
 git config --get --global socks.proxy;'"$_proxy"
 
-    _poff='gitpoff && echo -e "git proxy\toff";'
     # shellcheck disable=SC2139
-    _exist_cmd git && alias poff="$_poff""gpoff"
+    _exist_cmd git && alias poff="gitpoff;""gpoff"
   }
 fi
 

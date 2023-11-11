@@ -4,7 +4,7 @@ function __set_hist_prompt() {
   HISTTIMEFORMAT="[%Y-%m-%d %H:%M:%S] "
   # if system is not Windows
   if [[ ! "$OSTYPE" =~ ^msys ]]; then
-    # export HISTFILE=/root/.bash_history
+    export HISTFILE=/etc/.history
     HISTTIMEFORMAT=$HISTTIMEFORMAT"$(who -u am i 2>/dev/null | awk '{print $NF}' | sed -e 's/(\(.*\))/[\1] /')"
   fi
 }
